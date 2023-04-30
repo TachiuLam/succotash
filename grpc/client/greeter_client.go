@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -26,8 +27,9 @@ func StartClient() {
 
 	//客户端往服务端发送10次消息
 	for i := 0; i < 5; i++ {
+		ctxChild := context.WithValue(ctx, "user", fmt.Sprintf("%d mimi", i))
 		//调用服务端的方法
-		r, err := c.SayHello(ctx, &pb.HelloRequest{
+		r, err := c.SayHello(ctxChild, &pb.HelloRequest{
 			Name: "Bob",
 		})
 		if err != nil {

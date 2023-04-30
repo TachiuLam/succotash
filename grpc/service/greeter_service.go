@@ -2,7 +2,6 @@ package service
 
 import (
 	"context"
-
 	pb "github.com/TachiuLam/succotash/grpc/protobuf"
 )
 

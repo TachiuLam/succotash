@@ -16,8 +16,9 @@ func StartServer() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	//创建grpcServer
-	gRpcServer := grpc.NewServer()
+	//创建grpcServer 将拦截器添加进去
+	gRpcServer := grpc.NewServer([]grpc.ServerOption{grpc.UnaryInterceptor(NewServerIntercept())}...)
+
 	//注册服务实现
 	pb.RegisterGreeterServer(gRpcServer, &service.GreeterService{})
 	//启动服务
